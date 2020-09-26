@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import clsx from 'clsx'
 
@@ -21,6 +22,10 @@ import { mainListItems, secondaryListItems } from './drawerItems'
 import Character from './Character'
 import Episode from './Episode'
 import Location from './Location'
+
+const HomeLink = styled.div`
+  cursor: pointer;
+`
 
 const drawerWidth = 240;
 
@@ -130,9 +135,18 @@ const Dashboard = (props: Props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Rick and Morty
-          </Typography>
+          <HomeLink>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}
+              onClick={() => history.push('/')}
+            >
+              Rick and Morty
+            </Typography>
+          </HomeLink>
         </Toolbar>
       </AppBar>
       <Drawer
