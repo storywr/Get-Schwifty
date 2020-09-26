@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
+
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
+
 import { DataGrid } from '@material-ui/data-grid';
+
 import useDebouncedValue from '../hooks/useDebouncedValue'
+
+const Wrapper = styled.div`
+  height: 700px;
+  width: 100%;
+`
 
 const StyledTextField = styled(TextField)`
   margin-bottom: 2rem;
@@ -38,7 +47,7 @@ const LIST_CHARACTERS = gql`
 `
 
 const Character = () => {
-  const [getCharacters, { called, loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
+  const [getCharacters, { loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
   const debouncedValue = useDebouncedValue(name, 1000)
@@ -48,35 +57,35 @@ const Character = () => {
   }, [debouncedValue, page])
 
   return (
-    <>
-      <div style={{ height: 700, width: '100%' }}>
-        <StyledTextField
-          fullWidth
-          id="filled-name"
-          label="Name"
-          value={name}
-          onChange={e => {
-            setPage(1)
-            setName(e.target.value)
-          }}
-          variant='outlined'
+    <Wrapper>
+      <StyledTextField
+        fullWidth
+        id="filled-name"
+        label="Name"
+        value={name}
+        onChange={e => {
+          setPage(1)
+          setName(e.target.value)
+        }}
+        variant='outlined'
+      />
+      {!loading && data ?
+        <StyledDataGrid
+          page={page}
+          onPageChange={params => setPage(params.page)}
+          pageSize={20}
+          rowCount={data.characters.info.count}
+          pagination
+          paginationMode='server'
+          rows={data.characters.results}
+          columns={columns}
+          onRowClick={row => console.log(row)}
+          loading={loading}
         />
-        {data &&
-          <StyledDataGrid
-            page={page}
-            onPageChange={params => setPage(params.page)}
-            pageSize={20}
-            rowCount={data.characters.info.count}
-            pagination
-            paginationMode='server'
-            rows={data.characters.results}
-            columns={columns}
-            onRowClick={row => console.log(row)}
-            loading={loading}
-          />
-        }
-      </div>
-    </>
+      :
+        <LinearProgress />
+      }
+    </Wrapper>
   )
 }
 
