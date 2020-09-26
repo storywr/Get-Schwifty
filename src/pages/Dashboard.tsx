@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography'
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 
-import { mainListItems } from './drawerItems'
+import { mainListItems, secondaryListItems } from './drawerItems'
 
 import Character from './Character'
 import Episode from './Episode'
@@ -103,7 +103,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+interface Props {
+  dark: boolean
+  setDark: (dark: boolean) => void
+}
+
+const Dashboard = (props: Props) => {
   const classes = useStyles()
   const history = useHistory()
   const [open, setOpen] = useState(true)
@@ -145,7 +150,7 @@ export default function Dashboard() {
         <Divider />
         <List>{mainListItems(history)}</List>
         <Divider />
-        {/* <List>Secondary Items</List> */}
+        <List>{secondaryListItems(props)}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -161,3 +166,5 @@ export default function Dashboard() {
     </div>
   )
 }
+
+export default Dashboard
