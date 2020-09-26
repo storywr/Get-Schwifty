@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { gql, useLazyQuery, useQuery } from '@apollo/client'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
+
 import { DataGrid } from '@material-ui/data-grid';
+
 import useDebouncedValue from '../hooks/useDebouncedValue'
+
+const Wrapper = styled.div`
+  height: 700px;
+  width: 100%;
+`
 
 const StyledTextField = styled(TextField)`
   margin-bottom: 2rem;
@@ -18,37 +26,41 @@ const StyledDataGrid = styled(DataGrid)`
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 100 },
-  { field: 'name', headerName: 'Name', width: 300 },
-  { field: 'dimension', headerName: 'Dimension', width: 200}
+  { field: 'name', headerName: 'Name', width: 325 },
+  { field: 'dimension', headerName: 'Dimension', width: 325},
+  { field: 'type', headerName: 'Type', width: 225}
 ]
 
 const LIST_LOCATIONS = gql`
-  query ListLocations($name: String) {
-    locations(filter: { name: $name}) {
+  query ListLocations($name: String, $page: Int) {
+    locations(filter: { name: $name}, page: $page) {
       info {
         count
+        pages
       }
       results {
         id
         name
         dimension
+        type
       }
     }
   }
 `
 
 const Location = () => {
-  const [getLocations, query] = useLazyQuery<any>(LIST_LOCATIONS)
+  const [getLocations, { loading, data }] = useLazyQuery<any>(LIST_LOCATIONS)
+  const [page, setPage] = useState(1)
   const [name, setName] = useState('')
   const debouncedValue = useDebouncedValue(name, 1000)
 
   useEffect(() => {
-    getLocations({ variables: { name } })
-  }, [debouncedValue])
+    getLocations({ variables: { name, page } })
+  }, [debouncedValue, page])
 
   return (
     <>
-      <div style={{ height: 700, width: '100%' }}>
+      <Wrapper>
         <StyledTextField
           fullWidth
           id="filled-name"
@@ -57,15 +69,23 @@ const Location = () => {
           onChange={e => setName(e.target.value)}
           variant='outlined'
         />
-        {query && query.data &&
+        {!loading && data ?
           <StyledDataGrid
-            rows={query.data.locations.results}
+            page={page}
+            onPageChange={params => setPage(params.page)}
+            pageSize={20}
+            rowCount={data.locations.info.count}
+            pagination
+            paginationMode='server'
+            rows={data.locations.results}
             columns={columns}
-            pageSize={10}
             onRowClick={row => console.log(row)}
+            loading={loading}
           />
+        :
+          <LinearProgress />
         }
-      </div>
+      </Wrapper>
     </>
   )
 }

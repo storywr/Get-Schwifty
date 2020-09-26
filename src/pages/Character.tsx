@@ -25,9 +25,12 @@ const StyledDataGrid = styled(DataGrid)`
 `
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 100 },
-  { field: 'name', headerName: 'Name', width: 300 },
-  { field: 'species', headerName: 'Species', width: 200}
+  { field: 'id', headerName: 'ID', width: 75 },
+  { field: 'name', headerName: 'Name', width: 250 },
+  { field: 'species', headerName: 'Species', width: 150},
+  { field: 'status', headerName: 'Status', width: 150},
+  { field: 'origin', headerName: 'Origin', width: 275},
+  { field: 'location', headerName: 'Last Location', width: 275},
 ]
 
 const LIST_CHARACTERS = gql`
@@ -41,10 +44,30 @@ const LIST_CHARACTERS = gql`
         id
         name
         species
+        status
+        origin {
+          name
+        }
+        location {
+          name
+        }
       }
     }
   }
 `
+
+interface Character {
+  id: string | number
+  name: string
+  species: string
+  status: string
+  origin: {
+    name: string
+  }
+  location: {
+    name: string
+  }
+}
 
 const Character = () => {
   const [getCharacters, { loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
@@ -56,18 +79,26 @@ const Character = () => {
     getCharacters({ variables: { name, page } })
   }, [debouncedValue, page])
 
+  const getRows = (data: any) => (
+    data.characters.results.map(({ location, origin, ...rest }: Character) => ({
+      location: location.name,
+      origin: origin.name,
+      ...rest
+    }))
+  )
+
   return (
     <Wrapper>
       <StyledTextField
         fullWidth
         id="filled-name"
         label="Name"
+        variant='outlined'
         value={name}
         onChange={e => {
           setPage(1)
           setName(e.target.value)
         }}
-        variant='outlined'
       />
       {!loading && data ?
         <StyledDataGrid
@@ -77,7 +108,7 @@ const Character = () => {
           rowCount={data.characters.info.count}
           pagination
           paginationMode='server'
-          rows={data.characters.results}
+          rows={getRows(data)}
           columns={columns}
           onRowClick={row => console.log(row)}
           loading={loading}
