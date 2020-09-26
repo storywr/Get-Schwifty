@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { gql, useLazyQuery, useQuery } from '@apollo/client'
+import { gql, useLazyQuery } from '@apollo/client'
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
@@ -56,6 +56,7 @@ const Location = () => {
 
   useEffect(() => {
     getLocations({ variables: { name, page } })
+    // eslint-disable-next-line
   }, [debouncedValue, page])
 
   return (
