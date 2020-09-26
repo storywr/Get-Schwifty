@@ -56,7 +56,6 @@ const Episode = () => {
 
   useEffect(() => {
     getEpisodes({ variables: { name, page } })
-    // eslint-disable-next-line
   }, [debouncedValue, page])
 
   return (

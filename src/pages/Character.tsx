@@ -77,7 +77,6 @@ const Character = () => {
 
   useEffect(() => {
     getCharacters({ variables: { name, page } })
-    // eslint-disable-next-line
   }, [debouncedValue, page])
 
   const getRows = (data: any) => (

@@ -56,7 +56,6 @@ const Location = () => {
 
   useEffect(() => {
     getLocations({ variables: { name, page } })
-    // eslint-disable-next-line
   }, [debouncedValue, page])
 
   return (
