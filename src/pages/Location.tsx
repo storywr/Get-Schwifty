@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
+import { useHistory } from 'react-router-dom'
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
@@ -49,6 +50,7 @@ const LIST_LOCATIONS = gql`
 `
 
 const Location = () => {
+  const history = useHistory()
   const [getLocations, { loading, data }] = useLazyQuery<any>(LIST_LOCATIONS)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
@@ -79,7 +81,7 @@ const Location = () => {
             paginationMode='server'
             rows={data.locations.results}
             columns={columns}
-            onRowClick={row => console.log(row)}
+            onRowClick={row => history.push(`/location/${row.data.id}`)}
             loading={loading}
           />
         :

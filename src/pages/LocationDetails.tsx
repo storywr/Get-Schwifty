@@ -21,14 +21,14 @@ const Wrapper = styled.div`
   margin-top: 2rem;
 `
 
-const GET_EPISODE = gql`
+const GET_LOCATION = gql`
   query GetEpisode($id: ID!) {
-    episode(id: $id) {
+    location(id: $id) {
       id
       name
-      episode
-      air_date
-      characters {
+      dimension
+      type
+      residents {
         id
         image
         name
@@ -66,11 +66,11 @@ interface Character {
   }
 }
 
-const EpisodeDetails = () => {
+const LocationDetails = () => {
   const { id } = useParams()
   const history = useHistory()
 
-  const { data, error, loading } = useQuery(GET_EPISODE, {
+  const { data, error, loading } = useQuery(GET_LOCATION, {
     variables: { id: id! }
   })
 
@@ -81,22 +81,22 @@ const EpisodeDetails = () => {
           <Typography
             variant='h2'
           >
-            {data.episode.name}
+            {data.location.name}
           </Typography>
           <Typography
             variant='h4'
           >
-            {data.episode.episode}
+            {data.location.dimension}
           </Typography>
           <Typography
             variant='h6'
             gutterBottom
           >
-            {data.episode.air_date}
+            {data.location.type}
           </Typography>
           <Wrapper>
             <GridList cols={7}>
-              {data.episode.characters.map((character: Character) => (
+              {data.location.residents.map((character: Character) => (
                 <GridListTile key={character.id}>
                   <img src={character.image} alt={character.name} />
                   <GridListTileBar
@@ -122,4 +122,4 @@ const EpisodeDetails = () => {
   )
 }
 
-export default EpisodeDetails
+export default LocationDetails

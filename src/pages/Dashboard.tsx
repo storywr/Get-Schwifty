@@ -26,6 +26,7 @@ import Episode from './Episode'
 import EpisodeDetails from './EpisodeDetails'
 import Home from './Home'
 import Location from './Location'
+import LocationDetails from './LocationDetails'
 
 const AppBarSpacer = styled.div`
   flex-grow: 1;
@@ -191,6 +192,7 @@ const Dashboard = (props: Props) => {
             <Route exact path='/episode' component={Episode} />
             <Route path='/episode/:id' component={EpisodeDetails} />
             <Route exact path='/location' component={Location} />
+            <Route path='/location/:id' component={LocationDetails} />
             <Redirect to='/' />
           </Switch>
         </Container>
