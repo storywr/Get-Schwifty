@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
+import { useHistory } from 'react-router-dom'
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
@@ -25,10 +26,9 @@ const StyledDataGrid = styled(DataGrid)`
 `
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 100 },
   { field: 'name', headerName: 'Name', width: 350 },
-  { field: 'episode', headerName: 'Episode', width: 250},
-  { field: 'air_date', headerName: 'Air Date', width: 250}
+  { field: 'episode', headerName: 'Episode', width: 300},
+  { field: 'air_date', headerName: 'Air Date', width: 300}
 ]
 
 const LIST_EPISODES = gql`
@@ -49,6 +49,7 @@ const LIST_EPISODES = gql`
 `
 
 const Episode = () => {
+  const history = useHistory()
   const [getEpisodes, { loading, data }] = useLazyQuery<any>(LIST_EPISODES)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
@@ -78,7 +79,7 @@ const Episode = () => {
           paginationMode='server'
           rows={data.episodes.results}
           columns={columns}
-          onRowClick={row => console.log(row)}
+          onRowClick={row => history.push(`/episode/${row.data.id}`)}
           loading={loading}
         />
       :

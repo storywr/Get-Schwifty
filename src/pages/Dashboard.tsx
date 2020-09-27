@@ -22,6 +22,7 @@ import { mainListItems, secondaryListItems } from './drawerItems'
 import Character from './Character'
 import CharacterDetails from './CharacterDetails'
 import Episode from './Episode'
+import EpisodeDetails from './EpisodeDetails'
 import Location from './Location'
 
 const HomeLink = styled.div`
@@ -174,6 +175,7 @@ const Dashboard = (props: Props) => {
             <Route exact path='/character' component={Character} />
             <Route path='/character/:id' component={CharacterDetails} />
             <Route exact path='/episode' component={Episode} />
+            <Route path='/episode/:id' component={EpisodeDetails} />
             <Route exact path='/location' component={Location} />
             <Redirect to='/' />
           </Switch>

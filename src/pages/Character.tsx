@@ -26,10 +26,9 @@ const StyledDataGrid = styled(DataGrid)`
 `
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 75 },
   { field: 'name', headerName: 'Name', width: 250 },
-  { field: 'species', headerName: 'Species', width: 150},
-  { field: 'status', headerName: 'Status', width: 150},
+  { field: 'species', headerName: 'Species', width: 175},
+  { field: 'status', headerName: 'Status', width: 175},
   { field: 'origin', headerName: 'Origin', width: 275},
   { field: 'location', headerName: 'Last Location', width: 275},
 ]
