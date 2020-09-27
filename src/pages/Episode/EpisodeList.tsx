@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 
+import { Typography } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
 
@@ -59,17 +60,11 @@ const EpisodeList = () => {
     getEpisodes({ variables: { name, page } })
   }, [debouncedValue, page])
 
-  return (
-    <Wrapper>
-      <StyledTextField
-        fullWidth
-        id="filled-name"
-        label="Name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-        variant='outlined'
-      />
-      {!loading && data ?
+  const getGrid = () => {
+    if (loading) {
+      return <LinearProgress />
+    } else if (data) {
+      return (
         <StyledDataGrid
           page={page}
           onPageChange={params => setPage(params.page)}
@@ -82,9 +77,22 @@ const EpisodeList = () => {
           onRowClick={row => history.push(`/episode/${row.data.id}`)}
           loading={loading}
         />
-      :
-        <LinearProgress />
-      }
+      )  
+    }
+    return <Typography>No data found</Typography>
+  }
+
+  return (
+    <Wrapper>
+      <StyledTextField
+        fullWidth
+        id="filled-name"
+        label="Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        variant='outlined'
+      />
+      {getGrid()}
     </Wrapper>
   )
 }

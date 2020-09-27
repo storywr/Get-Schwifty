@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 
+import { Typography } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
 
@@ -87,6 +88,28 @@ const LocationList = () => {
     setPage(1)
   }
 
+  const getGrid = () => {
+    if (loading) {
+      return <LinearProgress />
+    } else if (data) {
+      return (
+        <StyledDataGrid
+          page={page}
+          onPageChange={params => setPage(params.page)}
+          pageSize={20}
+          rowCount={data.locations.info.count}
+          pagination
+          paginationMode='server'
+          rows={data.locations.results}
+          columns={columns}
+          onRowClick={row => history.push(`/location/${row.data.id}`)}
+          loading={loading}
+        />
+      )
+    }
+    return <Typography>No data found</Typography>
+  }
+
   return (
     <Wrapper>
       <LocationFilters
@@ -104,22 +127,7 @@ const LocationList = () => {
         onChange={e => setName(e.target.value)}
         variant='outlined'
       />
-      {!loading && data ?
-        <StyledDataGrid
-          page={page}
-          onPageChange={params => setPage(params.page)}
-          pageSize={20}
-          rowCount={data.locations.info.count}
-          pagination
-          paginationMode='server'
-          rows={data.locations.results}
-          columns={columns}
-          onRowClick={row => history.push(`/location/${row.data.id}`)}
-          loading={loading}
-        />
-      :
-        <LinearProgress />
-      }
+      {getGrid()}
     </Wrapper>
   )
 }

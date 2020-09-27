@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 
+import { Typography } from '@material-ui/core'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import TextField from '@material-ui/core/TextField'
 
@@ -86,7 +87,7 @@ interface Character {
 
 const CharacterList = () => {
   const history = useHistory()
-  const [getCharacters, { loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
+  const [getCharacters, { error, loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
   const [species, setSpecies] = useState('')
@@ -121,6 +122,28 @@ const CharacterList = () => {
     setPage(1)
   }
 
+  const getGrid = () => {
+    if (loading) {
+      return <LinearProgress />
+    } else if (data) {
+      return (
+        <StyledDataGrid
+          page={page}
+          onPageChange={params => setPage(params.page)}
+          pageSize={20}
+          rowCount={data.characters.info.count}
+          pagination
+          paginationMode='server'
+          rows={getRows(data)}
+          columns={columns}
+          onRowClick={row => history.push(`/character/${row.data.id}`)}
+          loading={loading}
+        />  
+      )  
+    }
+    return <Typography>No data found</Typography>
+  }
+
   return (
     <Wrapper>
       <CharacterFilters
@@ -143,22 +166,7 @@ const CharacterList = () => {
           setName(e.target.value)
         }}
       />
-      {!loading && data ?
-        <StyledDataGrid
-          page={page}
-          onPageChange={params => setPage(params.page)}
-          pageSize={20}
-          rowCount={data.characters.info.count}
-          pagination
-          paginationMode='server'
-          rows={getRows(data)}
-          columns={columns}
-          onRowClick={row => history.push(`/character/${row.data.id}`)}
-          loading={loading}
-        />
-      :
-        <LinearProgress />
-      }
+      {getGrid()}
     </Wrapper>
   )
 }
