@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `
 
 const GET_LOCATION = gql`
-  query GetEpisode($id: ID!) {
+  query GetLocation($id: ID!) {
     location(id: $id) {
       id
       name
