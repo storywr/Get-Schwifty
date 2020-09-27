@@ -2,4 +2,4 @@
 
 Client for [https://rickandmortyapi.com/](https://rickandmortyapi.com/)
 
-App hosted here: [https://get-schwifty.herokuapp.com/location](https://get-schwifty.herokuapp.com/location)
+App hosted here: [https://get-schwifty.herokuapp.com](https://get-schwifty.herokuapp.com)
