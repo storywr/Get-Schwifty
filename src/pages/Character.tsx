@@ -101,8 +101,9 @@ const Character = () => {
         page, 
         ...species && { species },
         ...status && { status },
-        ...gender && { gender }}
-      })
+        ...gender && { gender }
+      }
+    })
   }, [debouncedValue, page, species, status, gender])
 
   const getRows = (data: any) => (
