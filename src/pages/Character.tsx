@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '@material-ui/core/LinearProgress'
 import TextField from '@material-ui/core/TextField'
 
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid } from '@material-ui/data-grid'
 
 import useDebouncedValue from '../hooks/useDebouncedValue'
+import CharacterFilters from './CharacterFilters'
 
 const Wrapper = styled.div`
   height: 700px;
@@ -34,8 +35,22 @@ const columns = [
 ]
 
 const LIST_CHARACTERS = gql`
-  query ListCharacters($name: String, $page: Int) {
-    characters(filter: { name: $name}, page: $page) {
+  query ListCharacters(
+    $name: String,
+    $page: Int,
+    $species: String,
+    $status: String,
+    $gender: String
+  ) {
+    characters(
+      filter: {
+        name: $name,
+        species: $species,
+        status: $status,
+        gender: $gender
+      },
+      page: $page
+    ) {
       info {
         count
         pages
@@ -74,11 +89,21 @@ const Character = () => {
   const [getCharacters, { loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
+  const [species, setSpecies] = useState('')
+  const [status, setStatus] = useState('')
+  const [gender, setGender] = useState('')
   const debouncedValue = useDebouncedValue(name, 1000)
 
   useEffect(() => {
-    getCharacters({ variables: { name, page } })
-  }, [debouncedValue, page])
+    getCharacters({
+      variables: {
+        name,
+        page, 
+        ...species && { species },
+        ...status && { status },
+        ...gender && { gender }}
+      })
+  }, [debouncedValue, page, species, status, gender])
 
   const getRows = (data: any) => (
     data.characters.results.map(({ location, origin, ...rest }: Character) => ({
@@ -88,8 +113,24 @@ const Character = () => {
     }))
   )
 
+  const clearFilters = () => {
+    setSpecies('')
+    setStatus('')
+    setGender('')
+    setPage(1)
+  }
+
   return (
     <Wrapper>
+      <CharacterFilters
+        species={species}
+        setSpecies={setSpecies}
+        status={status}
+        setStatus={setStatus}
+        gender={gender}
+        setGender={setGender}
+        clearFilters={clearFilters}
+      />
       <StyledTextField
         fullWidth
         id="filled-name"
