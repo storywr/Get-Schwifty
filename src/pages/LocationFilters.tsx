@@ -22,6 +22,10 @@ const StyledChip = styled(Chip)`
   margin: 0.5rem;
 `
 
+const StyledDivider = styled(Divider)`
+  margin: 0.5rem;
+`
+
 interface Props {
   type: string
   setType: (type: string) => void
@@ -55,7 +59,7 @@ const LocationFilters = ({ type, setType, dimension, setDimension, clearFilters 
           color={getColor(type, 'Microverse')}
           variant={getVariant(type, 'Microverse')}
         />
-        <Divider orientation="vertical" flexItem />
+        <StyledDivider orientation="vertical" flexItem />
         <StyledChip
           label='Replacement Dimension'
           clickable
@@ -77,7 +81,7 @@ const LocationFilters = ({ type, setType, dimension, setDimension, clearFilters 
           color={getColor(dimension, 'unknown')}
           variant={getVariant(dimension, 'unknown')}
         />
-        <Divider orientation="vertical" flexItem />
+        <StyledDivider orientation="vertical" flexItem />
         <StyledChip variant='outlined' label='clear filters' onDelete={() => clearFilters()} />
       </Filters>
     </Flex>

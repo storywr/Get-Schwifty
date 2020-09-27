@@ -22,6 +22,10 @@ const StyledChip = styled(Chip)`
   margin: 0.5rem;
 `
 
+const StyledDivider = styled(Divider)`
+  margin: 0.5rem;
+`
+
 interface Props {
   species: string
   setSpecies: (species: string) => void
@@ -57,7 +61,7 @@ const CharacterFilters = ({ species, setSpecies, status, setStatus, gender, setG
           color={getColor(species, 'humanoid')}
           variant={getVariant(species, 'humanoid')}
         />
-        <Divider orientation="vertical" flexItem />
+        <StyledDivider orientation="vertical" flexItem />
         <StyledChip
           label='alive'
           clickable
@@ -79,7 +83,7 @@ const CharacterFilters = ({ species, setSpecies, status, setStatus, gender, setG
           color={getColor(status, 'unknown')}
           variant={getVariant(status, 'unknown')}
         />
-        <Divider orientation="vertical" flexItem />
+        <StyledDivider orientation="vertical" flexItem />
         <StyledChip
           label='male'
           clickable
@@ -101,7 +105,7 @@ const CharacterFilters = ({ species, setSpecies, status, setStatus, gender, setG
           color={getColor(gender, 'unknown')}
           variant={getVariant(gender, 'unknown')}
         />
-        <Divider orientation="vertical" flexItem />
+        <StyledDivider orientation="vertical" flexItem />
         <StyledChip variant='outlined' label='clear filters' onDelete={() => clearFilters()} />
       </Filters>
     </Flex>
