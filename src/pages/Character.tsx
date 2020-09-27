@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { gql, useLazyQuery } from '@apollo/client'
+import { useHistory } from 'react-router-dom'
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField'
@@ -70,6 +71,7 @@ interface Character {
 }
 
 const Character = () => {
+  const history = useHistory()
   const [getCharacters, { loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
@@ -110,7 +112,7 @@ const Character = () => {
           paginationMode='server'
           rows={getRows(data)}
           columns={columns}
-          onRowClick={row => console.log(row)}
+          onRowClick={row => history.push(`/character/${row.data.id}`)}
           loading={loading}
         />
       :
