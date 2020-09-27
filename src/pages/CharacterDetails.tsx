@@ -22,6 +22,7 @@ const Wrapper = styled.div`
 `
 
 const Flex = styled.div`
+  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
