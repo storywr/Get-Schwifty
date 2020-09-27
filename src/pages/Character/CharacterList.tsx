@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField'
 
 import { DataGrid } from '@material-ui/data-grid'
 
-import useDebouncedValue from '../hooks/useDebouncedValue'
+import useDebouncedValue from '../../hooks/useDebouncedValue'
 import CharacterFilters from './CharacterFilters'
 
 const Wrapper = styled.div`
@@ -84,7 +84,7 @@ interface Character {
   }
 }
 
-const Character = () => {
+const CharacterList = () => {
   const history = useHistory()
   const [getCharacters, { loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
   const [page, setPage] = useState(1)
@@ -163,4 +163,4 @@ const Character = () => {
   )
 }
 
-export default Character
+export default CharacterList

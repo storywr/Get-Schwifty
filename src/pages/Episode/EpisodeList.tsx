@@ -8,8 +8,7 @@ import TextField from '@material-ui/core/TextField'
 
 import { DataGrid } from '@material-ui/data-grid';
 
-import useDebouncedValue from '../hooks/useDebouncedValue'
-import LocationFilters from './LocationFilters'
+import useDebouncedValue from '../../hooks/useDebouncedValue'
 
 const Wrapper = styled.div`
   height: 700px;
@@ -27,26 +26,14 @@ const StyledDataGrid = styled(DataGrid)`
 `
 
 const columns = [
-  { field: 'name', headerName: 'Name', width: 325 },
-  { field: 'dimension', headerName: 'Dimension', width: 325},
-  { field: 'type', headerName: 'Type', width: 225}
+  { field: 'name', headerName: 'Name', width: 350 },
+  { field: 'episode', headerName: 'Episode', width: 300},
+  { field: 'air_date', headerName: 'Air Date', width: 300}
 ]
 
-const LIST_LOCATIONS = gql`
-  query ListLocations(
-    $name: String,
-    $type: String,
-    $dimension: String,
-    $page: Int
-  ) {
-    locations(
-      filter: {
-        name: $name,
-        type: $type,
-        dimension: $dimension
-      }, 
-      page: $page
-    ) {
+const LIST_EPISODES = gql`
+  query ListEpisodes($name: String, $page: Int) {
+    episodes(filter: { name: $name}, page: $page) {
       info {
         count
         pages
@@ -54,48 +41,26 @@ const LIST_LOCATIONS = gql`
       results {
         id
         name
-        dimension
-        type
+        episode
+        air_date
       }
     }
   }
 `
 
-const Location = () => {
+const EpisodeList = () => {
   const history = useHistory()
-  const [getLocations, { loading, data }] = useLazyQuery<any>(LIST_LOCATIONS)
+  const [getEpisodes, { loading, data }] = useLazyQuery<any>(LIST_EPISODES)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
-  const [type, setType] = useState('')
-  const [dimension, setDimension] = useState('')
   const debouncedValue = useDebouncedValue(name, 1000)
 
   useEffect(() => {
-    getLocations({
-      variables: {
-        name,
-        page, 
-        ...type && { type },
-        ...dimension && { dimension },
-      }
-    })
-  }, [debouncedValue, page, type, dimension])
-
-  const clearFilters = () => {
-    setType('')
-    setDimension('')
-    setPage(1)
-  }
+    getEpisodes({ variables: { name, page } })
+  }, [debouncedValue, page])
 
   return (
     <Wrapper>
-      <LocationFilters
-        type={type}
-        setType={setType}
-        dimension={dimension}
-        setDimension={setDimension}
-        clearFilters={clearFilters}
-      />
       <StyledTextField
         fullWidth
         id="filled-name"
@@ -109,12 +74,12 @@ const Location = () => {
           page={page}
           onPageChange={params => setPage(params.page)}
           pageSize={20}
-          rowCount={data.locations.info.count}
+          rowCount={data.episodes.info.count}
           pagination
           paginationMode='server'
-          rows={data.locations.results}
+          rows={data.episodes.results}
           columns={columns}
-          onRowClick={row => history.push(`/location/${row.data.id}`)}
+          onRowClick={row => history.push(`/episode/${row.data.id}`)}
           loading={loading}
         />
       :
@@ -124,4 +89,4 @@ const Location = () => {
   )
 }
 
-export default Location
+export default EpisodeList

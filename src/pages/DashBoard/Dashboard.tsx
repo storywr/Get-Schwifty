@@ -18,15 +18,15 @@ import Typography from '@material-ui/core/Typography'
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 
-import { mainListItems, secondaryListItems } from './drawerItems'
+import { mainListItems, secondaryListItems } from './DrawerItems'
 
-import Character from './Character'
-import CharacterDetails from './CharacterDetails'
-import Episode from './Episode'
-import EpisodeDetails from './EpisodeDetails'
-import Home from './Home'
-import Location from './Location'
-import LocationDetails from './LocationDetails'
+import CharacterList from '../Character/CharacterList'
+import CharacterDetails from '../Character/CharacterDetails'
+import EpisodeList from '../Episode/EpisodeList'
+import EpisodeDetails from '../Episode/EpisodeDetails'
+import Home from '../Home'
+import LocationList from '../Location/LocationList'
+import LocationDetails from '../Location/LocationDetails'
 
 const AppBarSpacer = styled.div`
   flex-grow: 1;
@@ -187,11 +187,11 @@ const Dashboard = (props: Props) => {
         <Container maxWidth="lg" className={classes.container}>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/character' component={Character} />
+            <Route exact path='/character' component={CharacterList} />
             <Route path='/character/:id' component={CharacterDetails} />
-            <Route exact path='/episode' component={Episode} />
+            <Route exact path='/episode' component={EpisodeList} />
             <Route path='/episode/:id' component={EpisodeDetails} />
-            <Route exact path='/location' component={Location} />
+            <Route exact path='/location' component={LocationList} />
             <Route path='/location/:id' component={LocationDetails} />
             <Redirect to='/' />
           </Switch>
