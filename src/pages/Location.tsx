@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import { DataGrid } from '@material-ui/data-grid';
 
 import useDebouncedValue from '../hooks/useDebouncedValue'
+import LocationFilters from './LocationFilters'
 
 const Wrapper = styled.div`
   height: 700px;
@@ -32,8 +33,20 @@ const columns = [
 ]
 
 const LIST_LOCATIONS = gql`
-  query ListLocations($name: String, $page: Int) {
-    locations(filter: { name: $name}, page: $page) {
+  query ListLocations(
+    $name: String,
+    $type: String,
+    $dimension: String,
+    $page: Int
+  ) {
+    locations(
+      filter: {
+        name: $name,
+        type: $type,
+        dimension: $dimension
+      }, 
+      page: $page
+    ) {
       info {
         count
         pages
@@ -53,41 +66,61 @@ const Location = () => {
   const [getLocations, { loading, data }] = useLazyQuery<any>(LIST_LOCATIONS)
   const [page, setPage] = useState(1)
   const [name, setName] = useState('')
+  const [type, setType] = useState('')
+  const [dimension, setDimension] = useState('')
   const debouncedValue = useDebouncedValue(name, 1000)
 
   useEffect(() => {
-    getLocations({ variables: { name, page } })
-  }, [debouncedValue, page])
+    getLocations({
+      variables: {
+        name,
+        page, 
+        ...type && { type },
+        ...dimension && { dimension },
+      }
+    })
+  }, [debouncedValue, page, type, dimension])
+
+  const clearFilters = () => {
+    setType('')
+    setDimension('')
+    setPage(1)
+  }
 
   return (
-    <>
-      <Wrapper>
-        <StyledTextField
-          fullWidth
-          id="filled-name"
-          label="Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          variant='outlined'
+    <Wrapper>
+      <LocationFilters
+        type={type}
+        setType={setType}
+        dimension={dimension}
+        setDimension={setDimension}
+        clearFilters={clearFilters}
+      />
+      <StyledTextField
+        fullWidth
+        id="filled-name"
+        label="Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        variant='outlined'
+      />
+      {!loading && data ?
+        <StyledDataGrid
+          page={page}
+          onPageChange={params => setPage(params.page)}
+          pageSize={20}
+          rowCount={data.locations.info.count}
+          pagination
+          paginationMode='server'
+          rows={data.locations.results}
+          columns={columns}
+          onRowClick={row => history.push(`/location/${row.data.id}`)}
+          loading={loading}
         />
-        {!loading && data ?
-          <StyledDataGrid
-            page={page}
-            onPageChange={params => setPage(params.page)}
-            pageSize={20}
-            rowCount={data.locations.info.count}
-            pagination
-            paginationMode='server'
-            rows={data.locations.results}
-            columns={columns}
-            onRowClick={row => history.push(`/location/${row.data.id}`)}
-            loading={loading}
-          />
-        :
-          <LinearProgress />
-        }
-      </Wrapper>
-    </>
+      :
+        <LinearProgress />
+      }
+    </Wrapper>
   )
 }
 
