@@ -17,14 +17,19 @@ import ListItemText from '@material-ui/core/ListItemText'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 import { DataGrid } from '@material-ui/data-grid';
+import { Typography } from '@material-ui/core'
 
 const Wrapper = styled.div`
   width: 800px;
   height: 500px;
 `
 
+const ListWrapper = styled.div`
+  justify-content: center;
+`
+
 const StyledCard = styled(Card)`
-  width: 400px;
+  width: 300px;
   height: 600px;
 `
 
@@ -35,14 +40,15 @@ const StyledCardGrid = styled(Card)`
 
 const StyledDataGrid = styled(DataGrid)`
   border: none;
+
   .MuiDataGrid-row {
     cursor: pointer;
   }
 `
 
 const StyledCardMedia = styled(CardMedia)`
-  height: 400px;
-  width: 400px;
+  height: 300px;
+  width: 300px;
 `
 
 const GET_CHARACTER = gql`
@@ -95,37 +101,25 @@ const CharacterDetails = () => {
         >
           <Grid item>
             <StyledCard>
-                <CardHeader
-                  action={
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon />
-                    </IconButton>
-                  }
-                  title={data.character.name}
-                  subheader={data.character.origin.name}
-                />
-                <StyledCardMedia
-                  image={data.character.image}
-                  title={data.character.name}
-                />
-                <CardContent>
-                    <List>
-                      <ListItem>
-                        <ListItemText
-                          primary={data.character.species}
-                          secondary='species'
-                        />
-                        <ListItemText
-                          primary={data.character.gender}
-                          secondary='gender'
-                        />
-                        <ListItemText
-                          primary={data.character.status}
-                          secondary='status'
-                        />
-                      </ListItem>
-                    </List>
-                </CardContent>
+              <CardHeader
+                action={
+                  <IconButton aria-label="settings">
+                    <MoreVertIcon />
+                  </IconButton>
+                }
+                title={data.character.name}
+                subheader={data.character.origin.name}
+              />
+              <StyledCardMedia
+                image={data.character.image}
+                title={data.character.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant='body1' align='left'>Species: {data.character.species}</Typography>
+                <Typography gutterBottom variant='body1' align='left'>Gender: {data.character.gender}</Typography>
+                <Typography gutterBottom variant='body1' align='left'>Status: {data.character.status}</Typography>
+                <Typography gutterBottom variant='body1' align='left'>Last known location: {data.character.location.name}</Typography>
+              </CardContent>
             </StyledCard>
           </Grid>
           <Grid item>

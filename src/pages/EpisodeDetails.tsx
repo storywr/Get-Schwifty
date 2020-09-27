@@ -8,31 +8,22 @@ import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '@material-ui/core/LinearProgress'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
 import { DataGrid } from '@material-ui/data-grid';
+import { Typography } from '@material-ui/core'
 
 const Wrapper = styled.div`
-  width: 800px;
-  height: 500px;
-`
-
-const StyledCard = styled(Card)`
-  width: 400px;
-  height: 600px;
-`
-
-const StyledCardGrid = styled(Card)`
-  width: 800px;
-  height: 600px;
-`
-
-const StyledDataGrid = styled(DataGrid)`
-  border: none;
-  .MuiDataGrid-row {
-    cursor: pointer;
-  }
+  display: 'flex';
+  flex-wrap: 'wrap';
+  justify-content: 'space-around';
+  overflow: 'hidden';
+  margin-top: 2rem;
 `
 
 const GET_EPISODE = gql`
@@ -75,6 +66,7 @@ const columns = [
 interface Character {
   id: string | number
   name: string
+  image: string
   species: string
   status: string
   origin: {
@@ -93,58 +85,47 @@ const EpisodeDetails = () => {
     variables: { id: id! }
   })
 
-  const getRows = (data: any) => (
-    data.episode.characters.map(({ location, origin, ...rest }: Character) => ({
-      location: location.name,
-      origin: origin.name,
-      ...rest
-    }))
-  )
-
   return (
     <>
       {data ?
-        <Grid
-          container
-          spacing={4}
-          alignItems='stretch'
-          justify='center'
-        >
-          <Grid item>
-            <StyledCard>
-              <CardHeader
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title={data.episode.name}
-                subheader={data.episode.episode}
-              />
-            </StyledCard>
-          </Grid>
-          <Grid item>
-            <StyledCardGrid>
-              <CardHeader
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title='Characters'
-              />
-              <Wrapper>
-                <StyledDataGrid
-                  disableSelectionOnClick
-                  rows={getRows(data)}
-                  columns={columns}
-                  pageSize={20}
-                  onRowClick={row => history.push(`/character/${row.data.id}`)}
-                />
-              </Wrapper>
-            </StyledCardGrid>
-          </Grid>
-        </Grid>
+        <>
+          <Typography
+            variant='h2'
+          >
+            {data.episode.name}
+          </Typography>
+          <Typography
+            variant='h4'
+          >
+            {data.episode.episode}
+          </Typography>
+          <Typography
+            variant='h6'
+            gutterBottom
+          >
+            {data.episode.air_date}
+          </Typography>
+          <Wrapper>
+            <GridList cols={7}>
+              {data.episode.characters.map((character: Character) => (
+                <GridListTile key={character.id}>
+                  <img src={character.image} alt={character.name} />
+                  <GridListTileBar
+                    title={character.name}
+                    actionIcon={
+                      <IconButton
+                        aria-label={`star ${character.name}`}
+                        onClick={() => history.push(`/character/${character.id}`)}
+                      >
+                        <ArrowForwardIcon />
+                      </IconButton>
+                    }
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </Wrapper>
+        </>
       :
         <LinearProgress />
       }

@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
+import GitHubIcon from '@material-ui/icons/GitHub'
 import List from '@material-ui/core/List'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -23,9 +24,14 @@ import Character from './Character'
 import CharacterDetails from './CharacterDetails'
 import Episode from './Episode'
 import EpisodeDetails from './EpisodeDetails'
+import Home from './Home'
 import Location from './Location'
 
-const HomeLink = styled.div`
+const AppBarSpacer = styled.div`
+  flex-grow: 1;
+`
+
+const Wrapper = styled.div`
   cursor: pointer;
 `
 
@@ -137,7 +143,7 @@ const Dashboard = (props: Props) => {
           >
             <MenuIcon />
           </IconButton>
-          <HomeLink>
+          <Wrapper>
             <Typography
               component="h1"
               variant="h6"
@@ -148,7 +154,14 @@ const Dashboard = (props: Props) => {
             >
               Rick and Morty
             </Typography>
-          </HomeLink>
+          </Wrapper>
+          <AppBarSpacer />
+          <a target='blank' href='https://github.com/storywr/r-m'>
+          <IconButton
+          >
+            <GitHubIcon />
+          </IconButton>
+          </a>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -172,6 +185,7 @@ const Dashboard = (props: Props) => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Switch>
+            <Route exact path='/' component={Home} />
             <Route exact path='/character' component={Character} />
             <Route path='/character/:id' component={CharacterDetails} />
             <Route exact path='/episode' component={Episode} />

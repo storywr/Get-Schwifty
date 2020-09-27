@@ -10,7 +10,7 @@ import Dashboard from './Dashboard'
 import client from '../util/apollo'
 
 const App = () => {
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(true)
 
   const darkTheme = createMuiTheme({
     palette: {
