@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
-import IconButton from '@material-ui/core/IconButton'
-import LinearProgress from '@material-ui/core/LinearProgress'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import IconButton from '@material-ui/core/IconButton'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 import { Typography } from '@material-ui/core'
 
@@ -70,7 +71,7 @@ const EpisodeDetails = () => {
   const { id } = useParams()
   const history = useHistory()
 
-  const { data, error, loading } = useQuery(GET_EPISODE, {
+  const { data } = useQuery(GET_EPISODE, {
     variables: { id: id! }
   })
 

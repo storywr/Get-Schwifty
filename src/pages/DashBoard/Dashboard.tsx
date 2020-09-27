@@ -9,8 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import GitHubIcon from '@material-ui/icons/GitHub'
-import List from '@material-ui/core/List'
 import IconButton from '@material-ui/core/IconButton'
+import List from '@material-ui/core/List'
 import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -20,13 +20,13 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 
 import { mainListItems, secondaryListItems } from './DrawerItems'
 
-import CharacterList from '../Character/CharacterList'
 import CharacterDetails from '../Character/CharacterDetails'
-import EpisodeList from '../Episode/EpisodeList'
+import CharacterList from '../Character/CharacterList'
 import EpisodeDetails from '../Episode/EpisodeDetails'
+import EpisodeList from '../Episode/EpisodeList'
 import Home from '../Home'
-import LocationList from '../Location/LocationList'
 import LocationDetails from '../Location/LocationDetails'
+import LocationList from '../Location/LocationList'
 
 const AppBarSpacer = styled.div`
   flex-grow: 1;

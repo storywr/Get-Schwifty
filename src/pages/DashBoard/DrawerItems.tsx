@@ -5,9 +5,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Switch from '@material-ui/core/Switch';
 
-import PeopleIcon from '@material-ui/icons/People'
-import ListIcon from '@material-ui/icons/List'
 import ExploreIcon from '@material-ui/icons/Explore'
+import ListIcon from '@material-ui/icons/List'
+import PeopleIcon from '@material-ui/icons/People'
 
 export const mainListItems = (history: any) => (
   <>

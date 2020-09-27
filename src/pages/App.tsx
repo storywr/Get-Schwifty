@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Dashboard from './DashBoard/Dashboard'
-
 import client from '../util/apollo'
 
 const App = () => {
