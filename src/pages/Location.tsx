@@ -26,7 +26,6 @@ const StyledDataGrid = styled(DataGrid)`
 `
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 100 },
   { field: 'name', headerName: 'Name', width: 325 },
   { field: 'dimension', headerName: 'Dimension', width: 325},
   { field: 'type', headerName: 'Type', width: 225}

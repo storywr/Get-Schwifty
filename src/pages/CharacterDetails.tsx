@@ -106,11 +106,6 @@ const CharacterDetails = () => {
           <Grid item>
             <StyledCard>
               <CardHeader
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
                 title={data.character.name}
                 subheader={data.character.origin.name}
               />
@@ -131,11 +126,6 @@ const CharacterDetails = () => {
           <Grid item>
             <StyledCardGrid>
               <CardHeader
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
                 title='Episodes'
               />
               <Wrapper>
