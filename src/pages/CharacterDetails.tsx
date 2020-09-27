@@ -8,24 +8,27 @@ import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
+import Chip from '@material-ui/core/Chip'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
-import LinearProgress from '@material-ui/core/LinearProgress';
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
-import { DataGrid } from '@material-ui/data-grid';
-import { Typography } from '@material-ui/core'
+import { DataGrid } from '@material-ui/data-grid'
 
 const Wrapper = styled.div`
   width: 800px;
   height: 500px;
 `
 
-const ListWrapper = styled.div`
+const Flex = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+`
+
+const StyledChip = styled(Chip)`
+  margin: 0.5rem;
 `
 
 const StyledCard = styled(Card)`
@@ -115,10 +118,12 @@ const CharacterDetails = () => {
                 title={data.character.name}
               />
               <CardContent>
-                <Typography gutterBottom variant='body1' align='left'>Species: {data.character.species}</Typography>
-                <Typography gutterBottom variant='body1' align='left'>Gender: {data.character.gender}</Typography>
-                <Typography gutterBottom variant='body1' align='left'>Status: {data.character.status}</Typography>
-                <Typography gutterBottom variant='body1' align='left'>Last known location: {data.character.location.name}</Typography>
+                <Flex>
+                  <StyledChip label={data.character.species} variant="outlined" />
+                  <StyledChip label={data.character.gender} variant="outlined" />
+                  <StyledChip label={data.character.status} variant="outlined" />
+                  <StyledChip label={data.character.location.name} variant="outlined" />
+                </Flex>
               </CardContent>
             </StyledCard>
           </Grid>
