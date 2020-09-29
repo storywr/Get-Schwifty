@@ -4,8 +4,7 @@ import styled from 'styled-components'
 import Chip from '@material-ui/core/Chip'
 import Divider from '@material-ui/core/Divider'
 
-const getColor = (filter: string, attribute: string) => filter === attribute ? 'secondary' : 'default'
-const getVariant = (filter: string, attribute: string) => filter === attribute ? 'default' : 'outlined'
+import Filter from '../../components/Filter'
 
 const Filters = styled.div`
   display: flex;
@@ -46,66 +45,42 @@ const LocationFilters = ({
   return (
     <Flex>
       <Filters>
-        <StyledChip
+        <Filter
+          currentAttribute={type}
+          setAttribute={setType}
           label='Planet'
-          clickable
-          onClick={() => {
-            resetPage()
-            setType('Planet')
-          }}
-          color={getColor(type, 'Planet')}
-          variant={type === 'Planet' ? 'default' : 'outlined'}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={type}
+          setAttribute={setType}
           label='Space Station'
-          clickable
-          onClick={() => {
-            resetPage()
-            setType('Space Station')
-          }}
-          color={getColor(type, 'Space Station')}
-          variant={getVariant(type, 'Space Station')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={type}
+          setAttribute={setType}
           label='Microverse'
-          clickable
-          onClick={() => {
-            resetPage()
-            setType('Microverse')
-          }}
-          color={getColor(type, 'Microverse')}
-          variant={getVariant(type, 'Microverse')}
+          resetPage={resetPage}
         />
         <StyledDivider orientation="vertical" flexItem />
-        <StyledChip
+        <Filter
+          currentAttribute={dimension}
+          setAttribute={setDimension}
           label='Replacement Dimension'
-          clickable
-          onClick={() => {
-            resetPage()
-            setDimension('Replacement Dimension')
-          }}
-          color={getColor(dimension, 'Replacement Dimension')}
-          variant={getVariant(dimension, 'Replacement Dimension')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={dimension}
+          setAttribute={setDimension}
           label='Dimension C-137'
-          clickable
-          onClick={() => {
-            resetPage()
-            setDimension('Dimension C-137')
-          }}
-          color={getColor(dimension, 'Dimension C-137')}
-          variant={getVariant(dimension, 'Dimension C-137')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={dimension}
+          setAttribute={setDimension}
           label='unknown'
-          clickable
-          onClick={() => {
-            resetPage()
-            setDimension('unknown')
-          }}
-          color={getColor(dimension, 'unknown')}
-          variant={getVariant(dimension, 'unknown')}
+          resetPage={resetPage}
         />
         <StyledDivider orientation="vertical" flexItem />
         <StyledChip variant='outlined' label='clear filters' onDelete={() => clearFilters()} />

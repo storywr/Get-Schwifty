@@ -4,8 +4,7 @@ import styled from 'styled-components'
 import Chip from '@material-ui/core/Chip'
 import Divider from '@material-ui/core/Divider'
 
-const getColor = (filter: string, attribute: string) => filter === attribute ? 'secondary' : 'default'
-const getVariant = (filter: string, attribute: string) => filter === attribute ? 'default' : 'outlined'
+import Filter from '../../components/Filter'
 
 const Filters = styled.div`
   display: flex;
@@ -50,97 +49,61 @@ const CharacterFilters = ({
   return (
     <Flex>
       <Filters>
-        <StyledChip
+        <Filter
+          currentAttribute={species}
+          setAttribute={setSpecies}
           label='human'
-          clickable
-          onClick={() => {
-            resetPage()
-            setSpecies('human')
-          }}
-          color={getColor(species, 'human')}
-          variant={species === 'human' ? 'default' : 'outlined'}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={species}
+          setAttribute={setSpecies}
           label='alien'
-          clickable
-          onClick={() => {
-            resetPage()
-            setSpecies('alien')
-          }}
-          color={getColor(species, 'alien')}
-          variant={getVariant(species, 'alien')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={species}
+          setAttribute={setSpecies}
           label='humanoid'
-          clickable
-          onClick={() => {
-            resetPage()
-            setSpecies('humanoid')
-          }}
-          color={getColor(species, 'humanoid')}
-          variant={getVariant(species, 'humanoid')}
+          resetPage={resetPage}
         />
         <StyledDivider orientation="vertical" flexItem />
-        <StyledChip
+        <Filter
+          currentAttribute={status}
+          setAttribute={setStatus}
           label='alive'
-          clickable
-          onClick={() => {
-            resetPage()
-            setStatus('alive')
-          }}
-          color={getColor(status, 'alive')}
-          variant={getVariant(status, 'alive')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={status}
+          setAttribute={setStatus}
           label='dead'
-          clickable
-          onClick={() => {
-            resetPage()
-            setStatus('dead')
-          }}
-          color={getColor(status, 'dead')}
-          variant={getVariant(status, 'dead')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={status}
+          setAttribute={setStatus}
           label='unknown'
-          clickable
-          onClick={() => {
-            resetPage()
-            setStatus('unknown')
-          }}
-          color={getColor(status, 'unknown')}
-          variant={getVariant(status, 'unknown')}
+          resetPage={resetPage}
         />
         <StyledDivider orientation="vertical" flexItem />
-        <StyledChip
+        <Filter
+          currentAttribute={gender}
+          setAttribute={setGender}
           label='male'
-          clickable
-          onClick={() => {
-            resetPage()
-            setGender('male')
-          }}
-          color={getColor(gender, 'male')}
-          variant={getVariant(gender, 'male')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={gender}
+          setAttribute={setGender}
           label='female'
-          clickable
-          onClick={() => {
-            resetPage()
-            setGender('female')
-          }}
-          color={getColor(gender, 'female')}
-          variant={getVariant(gender, 'female')}
+          resetPage={resetPage}
         />
-        <StyledChip
+        <Filter
+          currentAttribute={gender}
+          setAttribute={setGender}
           label='unknown'
-          clickable
-          onClick={() => {
-            resetPage()
-            setGender('unknown')
-          }}
-          color={getColor(gender, 'unknown')}
-          variant={getVariant(gender, 'unknown')}
+          resetPage={resetPage}
         />
         <StyledDivider orientation="vertical" flexItem />
         <StyledChip variant='outlined' label='clear filters' onDelete={() => clearFilters()} />
