@@ -32,30 +32,47 @@ interface Props {
   dimension: string
   setDimension: (dimension: string) => void
   clearFilters: () => void
+  resetPage: () => void
 }
 
-const LocationFilters = ({ type, setType, dimension, setDimension, clearFilters }: Props) => {
+const LocationFilters = ({
+  type,
+  setType,
+  dimension,
+  setDimension,
+  clearFilters,
+  resetPage
+}: Props) => {
   return (
     <Flex>
       <Filters>
         <StyledChip
           label='Planet'
           clickable
-          onClick={() => setType('Planet')}
+          onClick={() => {
+            resetPage()
+            setType('Planet')
+          }}
           color={getColor(type, 'Planet')}
           variant={type === 'Planet' ? 'default' : 'outlined'}
         />
         <StyledChip
           label='Space Station'
           clickable
-          onClick={() => setType('Space Station')}
+          onClick={() => {
+            resetPage()
+            setType('Space Station')
+          }}
           color={getColor(type, 'Space Station')}
           variant={getVariant(type, 'Space Station')}
         />
         <StyledChip
           label='Microverse'
           clickable
-          onClick={() => setType('Microverse')}
+          onClick={() => {
+            resetPage()
+            setType('Microverse')
+          }}
           color={getColor(type, 'Microverse')}
           variant={getVariant(type, 'Microverse')}
         />
@@ -63,21 +80,30 @@ const LocationFilters = ({ type, setType, dimension, setDimension, clearFilters 
         <StyledChip
           label='Replacement Dimension'
           clickable
-          onClick={() => setDimension('Replacement Dimension')}
+          onClick={() => {
+            resetPage()
+            setDimension('Replacement Dimension')
+          }}
           color={getColor(dimension, 'Replacement Dimension')}
           variant={getVariant(dimension, 'Replacement Dimension')}
         />
         <StyledChip
           label='Dimension C-137'
           clickable
-          onClick={() => setDimension('Dimension C-137')}
+          onClick={() => {
+            resetPage()
+            setDimension('Dimension C-137')
+          }}
           color={getColor(dimension, 'Dimension C-137')}
           variant={getVariant(dimension, 'Dimension C-137')}
         />
         <StyledChip
           label='unknown'
           clickable
-          onClick={() => setDimension('unknown')}
+          onClick={() => {
+            resetPage()
+            setDimension('unknown')
+          }}
           color={getColor(dimension, 'unknown')}
           variant={getVariant(dimension, 'unknown')}
         />

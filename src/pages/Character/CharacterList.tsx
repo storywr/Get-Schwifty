@@ -115,11 +115,13 @@ const CharacterList = () => {
     }))
   )
 
+  const resetPage = () => setPage(1)
+
   const clearFilters = () => {
     setSpecies('')
     setStatus('')
     setGender('')
-    setPage(1)
+    resetPage()
   }
 
   const getGrid = () => {
@@ -154,6 +156,7 @@ const CharacterList = () => {
         gender={gender}
         setGender={setGender}
         clearFilters={clearFilters}
+        resetPage={resetPage}
       />
       <StyledTextField
         fullWidth
@@ -162,7 +165,7 @@ const CharacterList = () => {
         variant='outlined'
         value={name}
         onChange={e => {
-          setPage(1)
+          resetPage()
           setName(e.target.value)
         }}
       />

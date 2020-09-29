@@ -34,30 +34,49 @@ interface Props {
   gender: string
   setGender: (gender: string) => void
   clearFilters: () => void
+  resetPage: () => void
 }
 
-const CharacterFilters = ({ species, setSpecies, status, setStatus, gender, setGender, clearFilters }: Props) => {
+const CharacterFilters = ({
+  species,
+  setSpecies,
+  status,
+  setStatus,
+  gender,
+  setGender,
+  clearFilters,
+  resetPage
+}: Props) => {
   return (
     <Flex>
       <Filters>
         <StyledChip
           label='human'
           clickable
-          onClick={() => setSpecies('human')}
+          onClick={() => {
+            resetPage()
+            setSpecies('human')
+          }}
           color={getColor(species, 'human')}
           variant={species === 'human' ? 'default' : 'outlined'}
         />
         <StyledChip
           label='alien'
           clickable
-          onClick={() => setSpecies('alien')}
+          onClick={() => {
+            resetPage()
+            setSpecies('alien')
+          }}
           color={getColor(species, 'alien')}
           variant={getVariant(species, 'alien')}
         />
         <StyledChip
           label='humanoid'
           clickable
-          onClick={() => setSpecies('humanoid')}
+          onClick={() => {
+            resetPage()
+            setSpecies('humanoid')
+          }}
           color={getColor(species, 'humanoid')}
           variant={getVariant(species, 'humanoid')}
         />
@@ -65,21 +84,30 @@ const CharacterFilters = ({ species, setSpecies, status, setStatus, gender, setG
         <StyledChip
           label='alive'
           clickable
-          onClick={() => setStatus('alive')}
+          onClick={() => {
+            resetPage()
+            setStatus('alive')
+          }}
           color={getColor(status, 'alive')}
           variant={getVariant(status, 'alive')}
         />
         <StyledChip
           label='dead'
           clickable
-          onClick={() => setStatus('dead')}
+          onClick={() => {
+            resetPage()
+            setStatus('dead')
+          }}
           color={getColor(status, 'dead')}
           variant={getVariant(status, 'dead')}
         />
         <StyledChip
           label='unknown'
           clickable
-          onClick={() => setStatus('unknown')}
+          onClick={() => {
+            resetPage()
+            setStatus('unknown')
+          }}
           color={getColor(status, 'unknown')}
           variant={getVariant(status, 'unknown')}
         />
@@ -87,21 +115,30 @@ const CharacterFilters = ({ species, setSpecies, status, setStatus, gender, setG
         <StyledChip
           label='male'
           clickable
-          onClick={() => setGender('male')}
+          onClick={() => {
+            resetPage()
+            setGender('male')
+          }}
           color={getColor(gender, 'male')}
           variant={getVariant(gender, 'male')}
         />
         <StyledChip
           label='female'
           clickable
-          onClick={() => setGender('female')}
+          onClick={() => {
+            resetPage()
+            setGender('female')
+          }}
           color={getColor(gender, 'female')}
           variant={getVariant(gender, 'female')}
         />
         <StyledChip
           label='unknown'
           clickable
-          onClick={() => setGender('unknown')}
+          onClick={() => {
+            resetPage()
+            setGender('unknown')
+          }}
           color={getColor(gender, 'unknown')}
           variant={getVariant(gender, 'unknown')}
         />

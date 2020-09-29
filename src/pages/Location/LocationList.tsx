@@ -82,10 +82,12 @@ const LocationList = () => {
     })
   }, [debouncedValue, page, type, dimension])
 
+  const resetPage = () => setPage(1)
+
   const clearFilters = () => {
     setType('')
     setDimension('')
-    setPage(1)
+    resetPage()
   }
 
   const getGrid = () => {
@@ -118,14 +120,18 @@ const LocationList = () => {
         dimension={dimension}
         setDimension={setDimension}
         clearFilters={clearFilters}
+        resetPage={resetPage}
       />
       <StyledTextField
         fullWidth
         id="filled-name"
         label="Name"
-        value={name}
-        onChange={e => setName(e.target.value)}
         variant='outlined'
+        value={name}
+        onChange={e => {
+          resetPage()
+          setName(e.target.value)
+        }}
       />
       {getGrid()}
     </Wrapper>
