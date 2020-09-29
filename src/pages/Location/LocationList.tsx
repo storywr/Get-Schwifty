@@ -65,10 +65,10 @@ const LIST_LOCATIONS = gql`
 const LocationList = () => {
   const history = useHistory()
   const [getLocations, { loading, data }] = useLazyQuery<any>(LIST_LOCATIONS)
-  const [page, setPage] = useState(1)
-  const [name, setName] = useState('')
-  const [type, setType] = useState('')
-  const [dimension, setDimension] = useState('')
+  const [page, setPage] = useState<number>(1)
+  const [name, setName] = useState<string>('')
+  const [type, setType] = useState<string>('')
+  const [dimension, setDimension] = useState<string>('')
   const debouncedValue = useDebouncedValue(name, 1000)
 
   useEffect(() => {

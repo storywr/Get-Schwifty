@@ -125,7 +125,7 @@ interface Props {
 const Dashboard = (props: Props) => {
   const classes = useStyles()
   const history = useHistory()
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState<boolean>(true)
 
   const handleDrawerOpen = () => setOpen(true)
   const handleDrawerClose = () => setOpen(false)

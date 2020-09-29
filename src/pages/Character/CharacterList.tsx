@@ -87,12 +87,12 @@ interface Character {
 
 const CharacterList = () => {
   const history = useHistory()
-  const [getCharacters, { error, loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
-  const [page, setPage] = useState(1)
-  const [name, setName] = useState('')
-  const [species, setSpecies] = useState('')
-  const [status, setStatus] = useState('')
-  const [gender, setGender] = useState('')
+  const [getCharacters, { loading, data }] = useLazyQuery<any>(LIST_CHARACTERS)
+  const [page, setPage] = useState<number>(1)
+  const [name, setName] = useState<string>('')
+  const [species, setSpecies] = useState<string>('')
+  const [status, setStatus] = useState<string>('')
+  const [gender, setGender] = useState<string>('')
   const debouncedValue = useDebouncedValue(name, 1000)
 
   useEffect(() => {

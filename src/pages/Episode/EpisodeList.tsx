@@ -52,8 +52,8 @@ const LIST_EPISODES = gql`
 const EpisodeList = () => {
   const history = useHistory()
   const [getEpisodes, { loading, data }] = useLazyQuery<any>(LIST_EPISODES)
-  const [page, setPage] = useState(1)
-  const [name, setName] = useState('')
+  const [page, setPage] = useState<number>(1)
+  const [name, setName] = useState<string>('')
   const debouncedValue = useDebouncedValue(name, 1000)
 
   useEffect(() => {
