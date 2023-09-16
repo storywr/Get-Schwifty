@@ -80,7 +80,7 @@ const LocationList = () => {
         ...dimension && { dimension },
       }
     })
-  }, [debouncedValue, page, type, dimension])
+  }, [debouncedValue, page, type, dimension, getLocations, name])
 
   const resetPage = () => setPage(1)
 
@@ -97,14 +97,14 @@ const LocationList = () => {
       return (
         <StyledDataGrid
           page={page}
-          onPageChange={params => setPage(params.page)}
+          onPageChange={(params: any) => setPage(params.page)}
           pageSize={20}
           rowCount={data.locations.info.count}
           pagination
           paginationMode='server'
           rows={data.locations.results}
           columns={columns}
-          onRowClick={row => history.push(`/location/${row.data.id}`)}
+          onRowClick={(row: any) => history.push(`/location/${row.id}`)}
           loading={loading}
         />
       )

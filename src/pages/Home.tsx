@@ -86,7 +86,7 @@ const Home = () => {
     if (listData) {
       getEpisode({ variables: { id: (listData.episodes.info.count! - 1) } })
     }
-  }, [listData])
+  }, [listData, getEpisode])
 
   return (
     <>

@@ -68,7 +68,7 @@ interface Character {
 }
 
 const LocationDetails = () => {
-  const { id } = useParams()
+  const { id } = useParams<{ id: string }>();
   const history = useHistory()
 
   const { data } = useQuery(GET_LOCATION, {

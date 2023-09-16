@@ -85,7 +85,7 @@ const columns = [
 ]
 
 const CharacterDetails = () => {
-  const { id } = useParams()
+  const { id } = useParams<{ id: string }>();
   const history = useHistory()
 
   const { data } = useQuery(GET_CHARACTER, {
@@ -132,7 +132,7 @@ const CharacterDetails = () => {
                   rows={data.character.episode}
                   columns={columns}
                   pageSize={20}
-                  onRowClick={row => history.push(`/episode/${row.data.id}`)}
+                  onRowClick={(row: any) => history.push(`/episode/${row.id}`)}
                 />
               </Wrapper>
             </StyledCardGrid>

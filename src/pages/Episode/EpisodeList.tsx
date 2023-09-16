@@ -58,7 +58,7 @@ const EpisodeList = () => {
 
   useEffect(() => {
     getEpisodes({ variables: { name, page } })
-  }, [debouncedValue, page])
+  }, [debouncedValue, page, getEpisodes, name])
 
   const getGrid = () => {
     if (loading) {
@@ -67,14 +67,14 @@ const EpisodeList = () => {
       return (
         <StyledDataGrid
           page={page}
-          onPageChange={params => setPage(params.page)}
+          onPageChange={(params: any) => setPage(params.page)}
           pageSize={20}
           rowCount={data.episodes.info.count}
           pagination
           paginationMode='server'
           rows={data.episodes.results}
           columns={columns}
-          onRowClick={row => history.push(`/episode/${row.data.id}`)}
+          onRowClick={(row: any) => history.push(`/episode/${row.id}`)}
           loading={loading}
         />
       )  

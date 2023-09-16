@@ -7,7 +7,7 @@ const useDebouncedValue = <T extends any>(value: T, delay: number = 500): T => {
     const handler = setTimeout(() => setState(value), delay)
 
     return () => clearTimeout(handler)
-  }, [value])
+  }, [value, delay])
 
   return state
 }

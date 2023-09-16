@@ -105,7 +105,7 @@ const CharacterList = () => {
         ...gender && { gender }
       }
     })
-  }, [debouncedValue, page, species, status, gender])
+  }, [debouncedValue, page, species, status, gender, getCharacters, name])
 
   const getRows = (data: any) => (
     data.characters.results.map(({ location, origin, ...rest }: Character) => ({
@@ -131,14 +131,14 @@ const CharacterList = () => {
       return (
         <StyledDataGrid
           page={page}
-          onPageChange={params => setPage(params.page)}
+          onPageChange={(params: any) => setPage(params.page)}
           pageSize={20}
           rowCount={data.characters.info.count}
           pagination
           paginationMode='server'
           rows={getRows(data)}
           columns={columns}
-          onRowClick={row => history.push(`/character/${row.data.id}`)}
+          onRowClick={(row: any) => history.push(`/character/${row.id}`)}
           loading={loading}
         />  
       )  
